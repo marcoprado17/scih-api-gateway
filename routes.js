@@ -4,7 +4,7 @@ const httpProxy = require('express-http-proxy');
 
 /* GET home page. */
 router.get('/api', function(req, res, next) {
-  res.send("Home paga da api");
+  res.send("Home page da api!!!");
 });
 
 const gpsServiceProxy = httpProxy('http://gps-service');
