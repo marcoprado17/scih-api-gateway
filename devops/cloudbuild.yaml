@@ -20,7 +20,7 @@ steps:
 - name: 'gcr.io/cloud-builders/docker'
   args: ['push', 'gcr.io/$PROJECT_ID/api-gateway:$SHORT_SHA']
 - name: 'gcr.io/cloud-builders/kubectl'
-  args: ['version']
+  args: ['set image deployment/api-gateway api-gateway=gcr.io/smart-car-insurance-hybrid/api-gateway:$SHORT_SHA']
   env:
   - 'CLOUDSDK_COMPUTE_ZONE=us-central1-a'
   - 'CLOUDSDK_CONTAINER_CLUSTER=cluster-1'
