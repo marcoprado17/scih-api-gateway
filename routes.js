@@ -4,7 +4,7 @@ const httpProxy = require('express-http-proxy');
 
 /* GET home page. */
 router.get('/api', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+  res.send("Hello World");
 });
 
 const userServiceProxy = httpProxy('http://localhost:3001');
