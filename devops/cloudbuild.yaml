@@ -5,18 +5,15 @@ steps:
   args: [
           'build',
           '--cache-from', 'gcr.io/$PROJECT_ID/api-gateway:latest',
-          '-t', 'gcr.io/$PROJECT_ID/api-gateway:latest', 
+          '-t', 'gcr.io/$PROJECT_ID/api-gateway:$SHORT_SHA', 
           '-f', 'devops/Dockerfile', 
           '.'
         ]
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['push', 'gcr.io/$PROJECT_ID/api-gateway:latest']
+  args: ['push', 'gcr.io/$PROJECT_ID/api-gateway:$SHORT_SHA']
 - name: 'gcr.io/cloud-builders/kubectl'
-  args: [
-          'patch', 'deployment', 'api-gateway',
-          '-p', "\"{\\\"spec\\\":{\\\"template\\\":{\\\"metadata\\\":{\\\"labels\\\":{\\\"date\\\":\\\"`date +'%s'`\\\"}}}}}\""
-        ]
+  args: ['version']
   env:
   - 'CLOUDSDK_COMPUTE_ZONE=us-central1-a'
   - 'CLOUDSDK_CONTAINER_CLUSTER=cluster-1'
-images: ['gcr.io/$PROJECT_ID/api-gateway:latest']
+images: ['gcr.io/$PROJECT_ID/api-gateway:latest', ''gcr.io/$PROJECT_ID/api-gateway:$SHORT_SHA'']
