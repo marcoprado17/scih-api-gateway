@@ -3,7 +3,7 @@ var router = express.Router();
 const httpProxy = require('express-http-proxy');
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
+router.get('/api', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
