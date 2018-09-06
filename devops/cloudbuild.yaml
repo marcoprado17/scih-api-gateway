@@ -16,4 +16,4 @@ steps:
   env:
   - 'CLOUDSDK_COMPUTE_ZONE=us-central1-a'
   - 'CLOUDSDK_CONTAINER_CLUSTER=cluster-1'
-images: ['gcr.io/$PROJECT_ID/api-gateway:latest', ''gcr.io/$PROJECT_ID/api-gateway:$SHORT_SHA'']
+images: ['gcr.io/$PROJECT_ID/api-gateway:latest', 'gcr.io/$PROJECT_ID/api-gateway:$SHORT_SHA']
