@@ -9,14 +9,14 @@ steps:
           '-f', 'devops/Dockerfile', 
           '.'
         ]
-# - name: 'gcr.io/cloud-builders/docker'
-#   args: [
-#           'build',
-#           '--cache-from', 'gcr.io/$PROJECT_ID/api-gateway:latest',
-#           '-t', 'gcr.io/$PROJECT_ID/api-gateway:latest', 
-#           '-f', 'devops/Dockerfile', 
-#           '.'
-#         ]
+- name: 'gcr.io/cloud-builders/docker'
+  args: [
+          'build',
+          '--cache-from', 'gcr.io/$PROJECT_ID/api-gateway:latest',
+          '-t', 'gcr.io/$PROJECT_ID/api-gateway:latest', 
+          '-f', 'devops/Dockerfile', 
+          '.'
+        ]
 - name: 'gcr.io/cloud-builders/docker'
   args: ['push', 'gcr.io/$PROJECT_ID/api-gateway:$SHORT_SHA']
 - name: 'gcr.io/cloud-builders/kubectl'
@@ -24,4 +24,4 @@ steps:
   env:
   - 'CLOUDSDK_COMPUTE_ZONE=us-central1-a'
   - 'CLOUDSDK_CONTAINER_CLUSTER=cluster-1'
-images: ['gcr.io/$PROJECT_ID/api-gateway:$SHORT_SHA']
+images: ['gcr.io/$PROJECT_ID/api-gateway:latest', 'gcr.io/$PROJECT_ID/api-gateway:$SHORT_SHA']
