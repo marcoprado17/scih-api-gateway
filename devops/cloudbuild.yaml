@@ -12,7 +12,10 @@ steps:
 - name: 'gcr.io/cloud-builders/docker'
   args: ['push', 'gcr.io/$PROJECT_ID/api-gateway:latest']
 - name: 'gcr.io/cloud-builders/kubectl'
-  args: ["patch deployment api-gateway -p $(printf '{\"spec\":{\"template\":{\"metadata\":{\"labels\":{\"date\":\"%s\"}}}}}' `date +%s`)"]
+  args: [
+          'patch', 'deployment', 'api-gateway',
+          '-p', "\"{\\\"spec\\\":{\\\"template\\\":{\\\"metadata\\\":{\\\"labels\\\":{\\\"date\\\":\\\"`date +'%s'`\\\"}}}}}\""
+        ]
   env:
   - 'CLOUDSDK_COMPUTE_ZONE=us-central1-a'
   - 'CLOUDSDK_CONTAINER_CLUSTER=cluster-1'
