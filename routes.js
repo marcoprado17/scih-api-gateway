@@ -21,6 +21,7 @@ router.post('/api/accounts/:accountId/contracts/:contractId/gps-data', (req, res
 
 router.get('/api/accounts/:accountId/contracts/:contractId/gps-data', (req, res, next) => {
   gpsServiceProxy(req, res, next);
+  
 })
 
 module.exports = router;
