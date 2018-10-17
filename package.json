@@ -3,12 +3,13 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "dev": "node ./bin/www --NODE_ENV=dev",
+    "dev": "nodemon ./bin/www --NODE_ENV=dev",
     "prod": "node ./bin/www --NODE_ENV=prod"
   },
   "dependencies": {
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.9",
+    "ethereumjs-util": "^5.2.0",
     "express": "~4.16.0",
     "express-http-proxy": "^1.2.0",
     "express-validator": "^5.3.0",

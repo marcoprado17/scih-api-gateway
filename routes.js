@@ -3,6 +3,9 @@ var router = express.Router();
 const httpProxy = require('express-http-proxy');
 const { body, param, validationResult } = require('express-validator/check');
 var nconf = require('nconf');
+const ethereumjs = require('ethereumjs-util');
+const wrapAsync = require('./wrap-assync');
+const assert = require('assert');
 
 /* Returning 200 on / to serve as health check to ingress: https://cloud.google.com/kubernetes-engine/docs/tutorials/http-balancer#remarks */
 router.get('/', function(req, res, next) {
@@ -30,14 +33,31 @@ router.post('/api/accounts/:accountId/contracts/:contractId/gps-data', [
   body("s.data.*").isNumeric(),
   param("accountId").isString(),
   param("contractId").isString()
-],(req, res, next) => {
+], wrapAsync(async (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
 
+    let dataHash = await ethereumjs.sha3(JSON.stringify(req.body.data));
+    
+    let r = new Buffer(req.body.r.data);
+    let s = new Buffer(req.body.s.data);
+
+    try {
+      const validSign = ethereumjs.isValidSignature(req.body.v, r, s);
+      const pubKey  = ethereumjs.ecrecover(ethereumjs.toBuffer(dataHash), req.body.v, r, s);
+      const addrBuf = ethereumjs.pubToAddress(pubKey);
+      const addr    = ethereumjs.bufferToHex(addrBuf);
+      assert(validSign);
+      assert.equal(req.body.from, addr)
+    }
+    catch(err) {
+      return res.status(400).json({ error: err.message });
+    }
+    
     gpsServiceProxy(req, res, next);
-});
+}));
 
 router.get('/api/accounts/:accountId/contracts/:contractId/gps-data', (req, res, next) => {
   gpsServiceProxy(req, res, next);
