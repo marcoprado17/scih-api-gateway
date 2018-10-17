@@ -47,13 +47,13 @@ function tempTestUrl(url){
     });
 }
 
-(function(){
+setTimeout(() => {
     tempTestUrl("http://35.239.45.68:82/");
     tempTestUrl("http://gps-service:82/");
     tempTestUrl("http://gps-service/");
     tempTestUrl("gps-service/");
     tempTestUrl("gps-service:82/");
     tempTestUrl("http://localhost:8282/");
-})();
+}, 30000);
 
 module.exports = app;
