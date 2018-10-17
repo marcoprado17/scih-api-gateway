@@ -56,8 +56,7 @@ router.post('/api/accounts/:accountId/contracts/:contractId/gps-data', [
       return res.status(400).json({ error: err.message });
     }
     
-    res.sendStatus(200);
-    // gpsServiceProxy(req, res, next);
+    gpsServiceProxy(req, res, next);
 }));
 
 router.get('/api/accounts/:accountId/contracts/:contractId/gps-data', (req, res, next) => {
