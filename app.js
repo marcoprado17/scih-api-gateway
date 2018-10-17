@@ -39,11 +39,11 @@ function tempTestUrl(url){
     })
     .then(function (response) {
         console.log(`sucesso para ${url}`);
-        console.log(response.data);
+        // console.log(response.data);
     })
     .catch(function (err) {
-        console.log(`erro para ${url}`);
-        console.error(err.message);
+        console.log(`erro para ${url} | ${err.message}`);
+        // console.error(err.message);
     });
 }
 
@@ -54,6 +54,26 @@ setTimeout(() => {
     tempTestUrl("gps-service/");
     tempTestUrl("gps-service:82/");
     tempTestUrl("http://localhost:8282/");
-}, 30000);
+
+    tempTestUrl("http://gpsservice:83/");
+    tempTestUrl("http://gpsservice/");
+    tempTestUrl("gpsservice/");
+    tempTestUrl("gpsservice:83/");
+
+    tempTestUrl("http://scihmachine_gpsservice_1:83/");
+    tempTestUrl("http://scihmachine_gpsservice_1/");
+    tempTestUrl("scihmachine_gpsservice_1/");
+    tempTestUrl("scihmachine_gpsservice_1:83/");
+
+    tempTestUrl("http://gps:82/");
+    tempTestUrl("http://gps/");
+    tempTestUrl("gps/");
+    tempTestUrl("gps:82/");
+
+    tempTestUrl("http://gps-service_1:82/");
+    tempTestUrl("http://gps-service_1/");
+    tempTestUrl("gps-service_1/");
+    tempTestUrl("gps-service_1:82/");
+}, 10000);
 
 module.exports = app;
