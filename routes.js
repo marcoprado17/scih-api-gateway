@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 const httpProxy = require('express-http-proxy');
 const { body, param, validationResult } = require('express-validator/check');
+var nconf = require('nconf');
 
 /* Returning 200 on / to serve as health check to ingress: https://cloud.google.com/kubernetes-engine/docs/tutorials/http-balancer#remarks */
 router.get('/', function(req, res, next) {
@@ -14,7 +15,7 @@ router.get('/api', function(req, res, next) {
 });
 
 /* gps-service rules */
-const gpsServiceProxy = httpProxy('http://gps-service');
+const gpsServiceProxy = httpProxy(nconf.get("gpsServiceHost"));
 
 router.post('/api/accounts/:accountId/contracts/:contractId/gps-data', [
   body("data.encryptedGpsData").isString(),

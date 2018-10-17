@@ -3,4 +3,4 @@ WORKDIR /home
 COPY package.json /home
 RUN npm install
 COPY . /home
-CMD ["npm", "run", "start"]
+CMD ["npm", "run", "prod"]

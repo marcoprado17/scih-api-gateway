@@ -1,6 +1,20 @@
 var express = require('express');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var nconf = require('nconf');
+
+nconf
+    .argv()
+    .env();
+
+let env = nconf.get("NODE_ENV") || "prod";
+
+if(env == "prod"){
+    nconf.file("./configs/prodConfigs.json");
+}
+else {
+    nconf.file("./configs/devConfigs.json");
+}
 
 var router = require('./routes');
 
