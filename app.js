@@ -33,27 +33,27 @@ app.use((err, req, res, next) => {
     res.status(500).json({"error": err.message});
 });
 
-// function tempTestUrl(url){
-//     const axios = require('axios');
-//     axios.get(url, {
-//     })
-//     .then(function (response) {
-//         console.log(`sucesso para ${url}`);
-//         console.log(response.data);
-//     })
-//     .catch(function (err) {
-//         console.log(`erro para ${url}`);
-//         console.error(err.message);
-//     });
-// }
+function tempTestUrl(url){
+    const axios = require('axios');
+    axios.get(url, {
+    })
+    .then(function (response) {
+        console.log(`sucesso para ${url}`);
+        console.log(response.data);
+    })
+    .catch(function (err) {
+        console.log(`erro para ${url}`);
+        console.error(err.message);
+    });
+}
 
-// setTimeout(() => {
-//     tempTestUrl("http://35.239.45.68:82/");
-//     tempTestUrl("http://gps-service:82/");
-//     tempTestUrl("http://gps-service/");
-//     tempTestUrl("gps-service/");
-//     tempTestUrl("gps-service:82/");
-//     tempTestUrl("http://localhost:8282/");
-// }, 30000);
+setTimeout(() => {
+    tempTestUrl("http://35.239.45.68:82/");
+    tempTestUrl("http://gps-service:82/");
+    tempTestUrl("http://gps-service/");
+    tempTestUrl("gps-service/");
+    tempTestUrl("gps-service:82/");
+    tempTestUrl("http://localhost:8282/");
+}, 30000);
 
 module.exports = app;
