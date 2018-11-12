@@ -43,25 +43,25 @@ router.post('/api/accounts/:accountId/contracts/:contractId/gps-data', [
       return res.status(400).json({ errors: errors.array() });
     }
 
-    // Validando a assinatura ECDSA
-    let dataHash = await ethereumjs.sha3(JSON.stringify(req.body.data));
+    // // Validando a assinatura ECDSA
+    // let dataHash = await ethereumjs.sha3(JSON.stringify(req.body.data));
     
-    let r = new Buffer(req.body.r.data);
-    let s = new Buffer(req.body.s.data);
+    // let r = new Buffer(req.body.r.data);
+    // let s = new Buffer(req.body.s.data);
 
-    try {
-      const validSign = ethereumjs.isValidSignature(req.body.v, r, s);
-      const pubKey  = ethereumjs.ecrecover(
-        ethereumjs.toBuffer(dataHash), req.body.v, r, s);
-      const addrBuf = ethereumjs.pubToAddress(pubKey);
-      const addr    = ethereumjs.bufferToHex(addrBuf);
-      assert(validSign);
-      assert.equal(req.body.from, addr)
-    }
-    catch(err) {
-      // Caso a assinatura seja inválida, será retornado o código http 400
-      return res.status(400).json({ error: err.message });
-    }
+    // try {
+    //   const validSign = ethereumjs.isValidSignature(req.body.v, r, s);
+    //   const pubKey  = ethereumjs.ecrecover(
+    //     ethereumjs.toBuffer(dataHash), req.body.v, r, s);
+    //   const addrBuf = ethereumjs.pubToAddress(pubKey);
+    //   const addr    = ethereumjs.bufferToHex(addrBuf);
+    //   assert(validSign);
+    //   assert.equal(req.body.from, addr)
+    // }
+    // catch(err) {
+    //   // Caso a assinatura seja inválida, será retornado o código http 400
+    //   return res.status(400).json({ error: err.message });
+    // }
     
     // Enviando o dado para GPS Service
     gpsServiceProxy(req, res, next);
